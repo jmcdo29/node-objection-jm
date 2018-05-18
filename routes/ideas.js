@@ -1,6 +1,6 @@
 const express = require('express');
-const { Idea } = require('../db/models/idea_schema');
-const { Comment } = require('../db/models/comment_schema');
+const { Idea, Comment } = require('../db/models/idea_schema');
+//const { Comment } = require('../db/models/comment_schema');
 const router = express.Router();
 
 router
