@@ -18,7 +18,7 @@ router
       });
   })
   .get('/:id', (req,res) => {
-    Idea.query().findById(req.params.id).eager('comment')
+    Idea.query().findById(req.params.id).eager('comments')
     .then(idea => {
       console.log('got the idea');
       console.log(idea);
