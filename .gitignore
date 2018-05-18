@@ -1,0 +1,6 @@
+node_modules
+*.txt
+.vscode
+.env
+db/migrations
+db/seeds
