@@ -18,6 +18,7 @@ router
       });
   })
   .get('/:id', (req,res) => {
+    console.log('Param Id:%s', req.params.id);
     Idea.query().findById(req.params.id).eager('comments')
     .then(idea => {
       console.log('got the idea');
