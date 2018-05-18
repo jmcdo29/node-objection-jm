@@ -18,7 +18,7 @@ router
       });
   })
   .get('/:id', (req,res) => {
-    Idea.query().findById(req.params.id).eager('comments')
+    Idea.query().findById(req.params.id).eager('comment')
     .then(idea => {
       console.log('got the idea');
       console.log(idea);
@@ -49,7 +49,7 @@ router
   .post('/:id/comments', (req, res) => {
     Idea.query().findById(req.params.id)
       .then(idea => {
-        return idea.$relatedQuery('comments')
+        return idea.$relatedQuery('comment')
                   .allowInsert('[comment, creator]')
                   .insert(req.body);
       })
