@@ -12,6 +12,8 @@ class Idea extends Model {
   }
 
   static get relationMappings () {
+    const { Comment } = require('./comment_schema');
+
     return {
       comments: {
         relation: Model.HasManyRelation,
