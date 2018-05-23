@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An app to help practice using Knex and Objection and knowing the differnce!",
   "main": "server.js",
+  "engines": {
+    "npm": ">=6.x"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "echo \"No test specified!\" && exit 1"
@@ -22,11 +25,17 @@
   "author": "Jay McDoniel",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.12.1",
     "knex": "^0.14.6",
+    "morgan": "^1.9.0",
     "objection": "^1.1.8",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.3"
   }
 }

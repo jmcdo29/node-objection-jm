@@ -3,18 +3,28 @@ const { Idea, Comment } = require('../db/models/idea_schema');
 //const { Comment } = require('../db/models/comment_schema');
 const router = express.Router();
 
+function authenticated(req, res, next){
+  console.log(req.user);
+  if(req.user){
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
+
+router.use(authenticated);
+
 router
   .get('/', (req, res) => {
     Idea.query()
       .then(ideas => {
         console.log('got the ideas');
-        console.log(ideas);
-        res.json(ideas);
+        res.status(200).send({ideas: ideas});
       })
       .catch(err => {
         console.log('Got an error!');
         console.error(err);
-        res.json(err);
+        res.status(400).send({error: err});
       });
   })
   .get('/:id', (req,res) => {
@@ -92,4 +102,6 @@ router
       });
   });
 
-  module.exports = router;
+
+
+module.exports = router;
