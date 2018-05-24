@@ -15,9 +15,16 @@ const app = express();
 
 app.use(helmet());
 app.use(morgan('dev'));
+app.set('view engine', 'pug');
+app.use(express.static('public'));
 app.use(parser.json());
 app.use(parser.urlencoded({extended: false}));
-app.use(session({secret: process.env.SECRET}));
+app.use(session({
+  secret: process.env.SECRET,
+  cookie: {
+    maxAge: 60000
+  }
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -19,12 +19,12 @@ router
     Idea.query()
       .then(ideas => {
         console.log('got the ideas');
-        res.status(200).send({ideas: ideas});
+        res.status(200).render('ideas', {ideas});
       })
       .catch(err => {
         console.log('Got an error!');
         console.error(err);
-        res.status(400).send({error: err});
+        res.status(400).render('ideas', {error: err.message});
       });
   })
   .get('/:id', (req,res) => {

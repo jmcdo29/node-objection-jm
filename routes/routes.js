@@ -7,6 +7,6 @@ module.exports = function(app, passport) {
   app.use('/ideas', ideaRoute);
   
   app.get('/', (req, res, next) => {
-    res.status(200).send({message: 'Please log in to use the app.'});
+    res.render('home', {loggedIn: req.user ? true : false});
   });
 }

@@ -1,0 +1,8 @@
+extends ./layout
+block content
+  a(href="/users/login") Login
+  a(href="/users/signup") Signup 
+  if(loggedIn)
+    a(href="/ideas") Ideas
+  div.
+    Welcome to my App

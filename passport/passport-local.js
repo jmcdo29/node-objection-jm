@@ -12,15 +12,10 @@ module.exports = function(passport) {
         passReqToCallback: true
       },
       function(req, email, password, done) {
-        console.log("Calling for User object.");
-        console.log('Email:', email);
-        //console.log('Password:', password);
-        //console.log('Done:', done);
         User.query()
           .where({ email: email })
           .limit(1)
           .then(user => {
-            console.log("USER:", user[0].email);
             return new Promise(function(resolve, reject){
               bcrypt.compare(password, user[0].password)
                 .then(result => {
@@ -41,7 +36,7 @@ module.exports = function(passport) {
           .catch(err => {
             console.log("ERROR IN LOGIN!");
             console.error(err.message ? err.message : err);
-            done(err, null);
+            done(null, null, err.message);
           });
       }
     )
@@ -54,7 +49,6 @@ module.exports = function(passport) {
       passReqToCallback: true
     },
     (req, email, password, done) => {
-      console.log(email);
       User.query()
         .where({email})
         .limit(1)
@@ -69,21 +63,18 @@ module.exports = function(passport) {
                 .select('id')
                 .where({email})
                 .then(user => {
-                  console.log('User:', user);
                   resolve(user);
                 });
             }
           });
         })
         .then(newUser => {
-          console.log('New User:', newUser);
-          console.log('Calling the callback');
           done(null, newUser);
         })
         .catch(err => {
           console.log('ERROR IN SIGNUP!');
           console.error(err.message ? err.message : err);
-          done(err, null);
+          done(null, null, err);
         })
     })
   )
