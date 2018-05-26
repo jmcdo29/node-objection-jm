@@ -2,6 +2,8 @@ extends layout
 block content
   div
     h2 Welcome to the Registration Page
+  if error && error.length != 0
+    p= error
   form(action="/users/signup", method="post")
     label(for="email") Email
     input(type="email", name="email")

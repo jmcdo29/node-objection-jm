@@ -19,7 +19,16 @@ router
     Idea.query()
       .then(ideas => {
         console.log('got the ideas');
-        res.status(200).render('ideas', {ideas});
+        const message = req.flash('success');
+        console.log('REQ.flash("success")');
+        const signedIn = req.flash('signedIn');
+        res.status(200).render('ideas', 
+          {
+            ideas: ideas, 
+            message: message, 
+            signedIn: signedIn
+          }
+        );
       })
       .catch(err => {
         console.log('Got an error!');

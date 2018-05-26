@@ -1,9 +1,9 @@
 extends layout
 block content
   h2 Welcome to the Log In Page
-  if err 
+  if errorMsg 
     .error 
-      =err
+      p= errorMsg
   if message
     .message
       =message
