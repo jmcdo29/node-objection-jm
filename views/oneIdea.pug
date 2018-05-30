@@ -1,0 +1,15 @@
+extends layout
+block content
+  .idea
+    p This is the idea #{idea.idea} created by #{idea.creator}. Below you can find the comments about #{idea.idea}. Or you can click #[a.inline(href='/ideas') here] to go back!
+  .comment
+    table
+      thead
+        tr
+          th Comment
+          th Commentor
+      tbody
+        each comment in idea.comments
+          tr
+            td= comment.comment
+            td= comment.creator

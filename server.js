@@ -40,10 +40,6 @@ app.listen(process.env.PORT, () => {
   console.log('Hello world from port %s!', process.env.PORT);
 });
 
-app.on('listen', () => {
-  console.log('The app is listening.');
-});
-
 app.on('error', err => {
   console.error(err);
 });

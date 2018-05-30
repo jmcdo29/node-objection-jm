@@ -1,17 +1,24 @@
 extends layout
 block content
   h2 Welcome to the Log In Page
-  if errorMsg 
+  if errorMsg && errorMsg.length !== 0
     .error 
       p= errorMsg
-  if message
+  if message && message.length !== 0
     .message
-      =message
+      p= message
   form(action="/users/login", method="post")
-    label(for="email") Email
-    input(type="email", name="email")
-    br
-    label(for="password") Password
-    input(type="password", name="password")
-    br
+    .custTable
+      .row
+        .cell.label
+          p Email
+        .cell.input
+          input(type="email", name="email")
+      .row
+        .cell.label
+          p Password
+        .cell.input
+          input(type="password", name="password")
     button(type="submit") Log In
+    br
+    a.inline(href="/users/forgot") Forgot your password?

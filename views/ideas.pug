@@ -1,11 +1,12 @@
 extends layout
 block content
-  div.
-    This is where I will redirect once a user is logged in. I will show the ideas and possibly the comments. Comments will probably be once I implement a specific page per idea!
   if message && message.length != 0
     p= message
   if signedIn && signedIn.length != 0
     p= signedIn
+  if error && error.length != 0
+    .error
+      p= error
   table
     thead
       tr
@@ -14,7 +15,8 @@ block content
     tbody
       each idea in ideas
         tr
-          td= idea.idea
+          td
+            a.inline(href="/ideas/" + idea.id) #{idea.idea}
           td= idea.creator
-
-  a(href="/users/logout") Logout
+  br
+  a.logout(href="/users/logout") Logout

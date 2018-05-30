@@ -3,8 +3,8 @@ const { Idea, Comment } = require('../db/models/idea_schema');
 //const { Comment } = require('../db/models/comment_schema');
 const router = express.Router();
 
+// Middleware function for entire /ideas API to make sure the user is logged in to access these routes
 function authenticated(req, res, next){
-  console.log(req.user);
   if(req.user){
     next();
   } else {
@@ -14,13 +14,21 @@ function authenticated(req, res, next){
 
 router.use(authenticated);
 
+/**
+ * API routes for /idea
+ * GET:
+ *      /               :Get all the ideas and display them
+ *      /:id            :Get the specified idea and display it with comments
+ * POST:
+ *      /               :Add a new idea
+ *      /:id/comments   :Add a comment to specified idea
+ */
+
 router
   .get('/', (req, res) => {
     Idea.query()
       .then(ideas => {
-        console.log('got the ideas');
         const message = req.flash('success');
-        console.log('REQ.flash("success")');
         const signedIn = req.flash('signedIn');
         res.status(200).render('ideas', 
           {
@@ -37,17 +45,14 @@ router
       });
   })
   .get('/:id', (req,res) => {
-    console.log('Param Id:%s', req.params.id);
     Idea.query().findById(req.params.id).eager('comments')
     .then(idea => {
-      console.log('got the idea');
-      console.log(idea);
-      res.json(idea);
+      res.render('oneIdea', {idea});
     })
     .catch(err => {
       console.log('Got an error!');
       console.error(err);
-      res.json(err);
+      res.render('ideas', {error: err});
     });
   })
   .post('/', (req, res) => {
@@ -79,32 +84,6 @@ router
         res.send(ideaWithNewComment);
       })
       .catch(err => { 
-        console.log('Got an error!');
-        console.error(err);
-        res.send(err);
-      });
-  })
-  .delete('/:id', (req, res) => { 
-    Idea.query().deleteById(req.params.id)
-      .then(result => {
-        console.log('Deleted an idea :(');
-        console.log(result);
-        res.redirect('/ideas');
-      })
-      .catch(err => {
-        console.log('Got an error!');
-        console.error(err);
-        res.send(err);
-      });
-  })
-  .delete(':id/comments/:commentId', (req, res) => { 
-    Comment.query().deleteById(req.params.commentId)
-      .then(result => {
-        console.log('Deleted a comment!');
-        console.log(result);
-        res.redirect(`/ideas/${req.params.id}`);
-      })
-      .catch(err => {
         console.log('Got an error!');
         console.error(err);
         res.send(err);

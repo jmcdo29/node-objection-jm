@@ -1,0 +1,27 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    style(type="text/css").
+      .body{
+        height: 90%;
+        padding: 1em 1em;
+        background-color: lightgrey;
+      }
+      .info{
+        
+      }
+  body
+    .body
+      h2 Reset Your Password
+      .info 
+        p Hello, it looks like you or someone else has asked to reset your password.
+        p If this was not you we suggest you go change your password for security sake!
+        p If this was you, please follow #[a(href="http://"+ host + "/users/reset/" + reset) this link].
+        small This email link will expire in 15 minutes.
+      .closer
+        p Have a great day.
+        p The ZeldaPlay Team
+    .foot
+      p This email was sent on the behalf of ZeldaPlay in a regards to contact you about your password reset. For any questions or concerns please email us at #[a(href="mailto:jmcdo29+zeldaplay@gmail.com?Subject=Questions%20And%20Comments") zeldaPlay@gmail.com].

@@ -16,6 +16,9 @@ module.exports = function(passport) {
           .where({ email: email })
           .limit(1)
           .then(user => {
+            if (!user[0]) {
+              throw new Error('No user found. Please check your user name, or sign up.');
+            }
             return new Promise(function(resolve, reject){
               bcrypt.compare(password, user[0].password)
                 .then(result => {
@@ -57,7 +60,7 @@ module.exports = function(passport) {
             if(user[0]) {
               reject('Email is already taken. Please use a different email or sign in.')
             } else {
-              password = bcrypt.hashSync(password,bcrypt.genSaltSync(16));
+              password = bcrypt.hashSync(password, 16);
               return User.query()
                 .insert({email, password})
                 .select('id')

@@ -2,13 +2,25 @@ extends layout
 block content
   div
     h2 Welcome to the Registration Page
+    p When creating a password, please ensure it contains at least one (1) special charater (!@#$%^&*), one (1) number, one (1) lowercase, and one (1) uppercase character. Also, please make sure that it is at least eight (8) characters long.
   if error && error.length != 0
-    p= error
+    each err in error
+      p.error= err
   form(action="/users/signup", method="post")
-    label(for="email") Email
-    input(type="email", name="email")
-    br
-    label(for="password") Password
-    input(type="password", name="password")
-    br
+    .custTable
+      .row
+        .cell.label
+          p Email
+        .cell.input
+          input(type="email", name="email")
+      .row
+        .cell.label
+          p Password
+        .cell.input
+          input(type="password", name="password")
+      .row
+        .cell.label
+          p Confirm Password
+        .cell.input
+          input(type="password", name="confPass")
     button(type="submit") Register!

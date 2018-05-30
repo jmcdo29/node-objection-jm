@@ -4,5 +4,10 @@ block content
   a(href="/users/signup") Signup 
   if(loggedIn)
     a(href="/ideas") Ideas
-  div.
-    Welcome to my App
+  div 
+    p Welcome to my App
+    if error && error.length != 0
+      p.error= error
+    if(!loggedIn)
+      p Please #[a.inline(href="/users/login") log in] to view my ideas! If you do not have an account you can click #[a.inline(href="/users/signup") here!] 
+    
