@@ -1,11 +1,13 @@
 /* const passport = require("passport"); */
-const LocalStrategy = require("passport-local").Strategy;
-const { User } = require("../db/models/user_schema");
-const bcrypt = require("bcryptjs");
+//const LocalStrategy = require("passport-local").Strategy;
+import { Strategy } from 'passport-local';
+//const { User } = require("../db/models/user_schema");
+import { User } from '../db/models/user_schema';
+import { compare, hashSync } from "bcryptjs";
 
-module.exports = function(passport) {
+export  function local(passport) {
    passport.use('local-login',
-    new LocalStrategy(
+    new Strategy(
       {
         usernameField: "email",
         passwordField: "password",
@@ -20,7 +22,7 @@ module.exports = function(passport) {
               throw new Error('No user found. Please check your user name, or sign up.');
             }
             return new Promise(function(resolve, reject){
-              bcrypt.compare(password, user[0].password)
+              compare(password, user[0].password)
                 .then(result => {
                   if (result) {
                     resolve(user[0]);
@@ -46,7 +48,7 @@ module.exports = function(passport) {
   ); 
 
   passport.use('local-signup',
-    new LocalStrategy({
+    new Strategy({
       usernameField: 'email',
       passwordField: 'password',
       passReqToCallback: true
@@ -60,7 +62,7 @@ module.exports = function(passport) {
             if(user[0]) {
               reject('Email is already taken. Please use a different email or sign in.')
             } else {
-              password = bcrypt.hashSync(password, 16);
+              password = hashSync(password, 16);
               return User.query()
                 .insert({email, password})
                 .select('id')

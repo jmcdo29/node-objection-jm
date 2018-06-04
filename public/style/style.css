@@ -1,31 +1,36 @@
-body{
+body {
   font-size: 100%;
 }
-a{
+
+a {
   padding: 0.5em 1em 0.5em 1em;
-  background-color: rgb(198, 203, 210);
+  background-color: #c6cbd2;
   border: 1px lightslategrey solid;
   border-radius: 3px;
 }
-.inline{
+
+.inline {
   margin: 0;
   padding: 0;
   background-color: unset;
   border: unset;
   border-radius: unset;
 }
-.error{
+
+.error {
   color: red;
 }
-.body{
+
+.body {
   height: 95vh;
   padding: 1em 2em;
-  background-color: rgb(218, 223, 230);
+  background-color: #dadfe6;
   border: 1px lightslategrey solid;
   border-radius: 5px;
   box-shadow: 2px;
 }
-.logout{
+
+.logout {
   margin: 1em;
   background: lightgray;
   border: 1px solid black;
@@ -33,35 +38,45 @@ a{
   color: black;
   text-decoration: none;
 }
-.logout:visited{
+
+.logout:visited {
   color: black;
 }
-label{
+
+label {
   width: 10em;
   padding-right: 2em;
 }
-input[type='email'], input[type='password']{
+
+input[type=email], input[type=password] {
   width: 100%;
   border-radius: 10px;
   margin: 0.5em;
   padding: 0.25em;
 }
-.custTable{
+
+.custTable {
   width: 50%;
 }
-.row{
+
+.row {
   width: 100%;
 }
-.row:after{
+
+.row:after {
   content: "";
   display: table;
   clear: both;
 }
-.cell.label{
+
+.cell.label {
   float: left;
   width: 25%;
 }
-.cell.input{
+
+.cell.input {
   width: 75%;
-  float:left;
+  float: left;
 }
+
+/*# sourceMappingURL=public/style/style.css.map */

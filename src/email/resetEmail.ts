@@ -1,9 +1,11 @@
-const { User } = require('../db/models/user_schema');
-const pug = require('pug');
-const crypto = require('crypto');
-const nodemail = require('nodemailer');
-const mg = require('nodemailer-mailgun-transport');
-require('dotenv').config({path: '../.env'});
+import { User } from '../db/models/user_schema';
+import * as pug from 'pug';
+import { randomBytes } from 'crypto';
+import { createTransport } from 'nodemailer';
+import * as mg from 'nodemailer-mailgun-transport';
+import { config } from 'dotenv';
+
+config();
 
 const auth = {
   auth: {
@@ -12,11 +14,11 @@ const auth = {
   }
 }
 
-const mailgun = nodemail.createTransport(mg(auth));
+const mailgun = createTransport(mg(auth));
 
 function getBytes(){
   return new Promise( (resolve, reject)=> {
-    crypto.randomBytes(20, (err, buff)=>{
+    randomBytes(20, (err, buff)=>{
       if(err){
         reject(err);
       }
@@ -25,14 +27,14 @@ function getBytes(){
   });
 }
 
-function saveRandoString(email, random){
+function saveRandoString(email: string, random: any){
   return User.query().where({email}).update({
     reset_token: random,
     token_expire: new Date(Date.now() + 900000).toISOString().slice(0, 19).replace('T', ' ')
   });
 }
 
-module.exports = function(email, host){
+export function sendMail(email: string, host: string){
   Promise.all([
     User.query().select('email').where({email}),
     getBytes()
@@ -67,4 +69,4 @@ module.exports = function(email, host){
   .catch(err => {
     console.error('ERROR:', err);
   });
-}
+};

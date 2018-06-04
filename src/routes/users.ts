@@ -1,10 +1,12 @@
-const router = require('express').Router();
-const { User } = require('../db/models/user_schema');
-const passport = require('passport');
-require("../passport/passport-local")(passport);
-const email = require('../email/resetEmail');
-const bcrypt = require('bcryptjs');
+import { Router, Request as Req, Response as Res } from 'express';
+import { User } from '../db/models/user_schema';
+import * as passport from 'passport';
+import { local } from "../passport/localPass";
+import { sendMail } from '../email/resetEmail';
+import * as bcrypt from 'bcryptjs';
 
+local(passport);
+const router = Router();
 /**
  * API USER Routes for my idea app!
  * All routes come from the /user parent route
@@ -22,22 +24,17 @@ const bcrypt = require('bcryptjs');
  *      /signup         :Post the sign up details, verify the password, and add the user to the system
  */
 
-router.use((req, res ,next) => {
-  console.log(req.hostname);
-  next();
-});
-
 router
-  .get('/forgot', alreadyLoggedIn, (req, res, next) => {
+  .get('/forgot', alreadyLoggedIn, (req: Req, res: Res, next) => {
     const msg = req.flash('message');
     res.render('forgot', {message: msg});
   })
-  .post('/forgot', alreadyLoggedIn, (req, res, next) => {
-    email(req.body.email, req.hostname);
+  .post('/forgot', alreadyLoggedIn, (req: Req, res: Res, next) => {
+    sendMail(req.body.email, req.hostname);
     req.flash('message', 'An email will be sent shortly.');
     res.redirect('/users/forgot');
   })
-  .get('/login', alreadyLoggedIn, (req, res, next) => { 
+  .get('/login', alreadyLoggedIn, (req: Req, res: Res, next) => { 
     const error = req.flash('error');
     res.render('login', {errorMsg: error});
   })
@@ -45,20 +42,19 @@ router
     failureRedirect: '/users/login',
     failureFlash: 'Invalid username or password.',
     successFlash: 'Welcome to my app of ideas!'
-  }), (req, res, next) => {
+  }), (req: Req, res: Res, next) => {
     res.redirect('/ideas');
   })
-  .get('/logout', loggedIn, (req, res, next) => {
+  .get('/logout', loggedIn, (req: Req, res: Res, next) => {
     req.logout();
     res.redirect('/');
   })
-  .get('/reset/:token', alreadyLoggedIn, (req, res, next) => {
+  .get('/reset/:token', alreadyLoggedIn, (req: Req, res: Res, next) => {
     const errors = req.flash('error');
     User.query().select('email').where({reset_token: req.params.token}).andWhere('token_expire', '>', new Date(Date.now()).toISOString().slice(0,19).replace('T', ' '))
       .then(user => {
-        user = user[0];
-        if (!user) {
-          throw new Error('No user found. You may need to have a new email sent.');
+        if (!user[0]) {
+          throw new Error('Invalid reset token. You may need to have a new email sent.');
         }
         res.render('reset', {user, token: req.params.token, error: errors});
       })
@@ -68,7 +64,7 @@ router
         res.redirect('/');
       });
   })
-  .post('/reset', alreadyLoggedIn, verifyPass, compareLast, (req, res, next) => {
+  .post('/reset', alreadyLoggedIn, verifyPass, compareLast, (req: Req, res: Res, next) => {
     const hash = bcrypt.hashSync(req.body.password, 16);
     User.query().update({password: hash}).where({email: req.body.email})
       .then(user => {
@@ -80,7 +76,7 @@ router
         res.redirect(req.originalUrl);
       })
   })
-  .get('/signup', alreadyLoggedIn, (req, res, next) => {
+  .get('/signup', alreadyLoggedIn, (req: Req, res: Res, next) => {
     const error = req.flash('error');
     res.render('signup', {error: error});
   })
@@ -88,12 +84,12 @@ router
     failureRedirect: '/users/signup',
     failureFlash: 'That email is already taken. Please try again.',
     successFlash: 'Welcome to my app of ideas!'
-  }), (req, res, next) => {
+  }), (req: Req, res: Res, next) => {
     res.redirect('/ideas');
   });
 
 // Middleware function to check if the user is logged in and stop them from going to log in or sign up again
-function alreadyLoggedIn(req, res, next) {
+function alreadyLoggedIn(req: Req, res: Res, next) {
   if (req.user) {
     req.flash('signedIn', 'You are already signed in. Please log out to use a different account.');
     res.redirect('/ideas');
@@ -103,7 +99,7 @@ function alreadyLoggedIn(req, res, next) {
 };
 
 // Middleware function to let the user sign out, but only if they are signed in
-function loggedIn(req, res, next) {
+function loggedIn(req: Req, res: Res, next) {
   if (req.user) {
     next();
   } else {
@@ -111,8 +107,7 @@ function loggedIn(req, res, next) {
   }
 };
 
-// Middleware function to do a lot of password validations
-function verifyPass(req, res, next) {
+function verifyPass(req: Req, res: Res, next) {
   let error = [];
   const pass = req.body.password;
   if (pass !== req.body.confPass) {
@@ -134,7 +129,7 @@ function verifyPass(req, res, next) {
     error.push('Your password does not contain a lowercase character. Please make sure it doesn.');
   }
   if (error.length !== 0){
-    req.flash('error', error);
+    req.flash('error', error.toString());
     const token = req.body.token ? req.body.token : '';
     const redirectURL = req.originalUrl + '/' + token;
     return res.redirect(redirectURL);
@@ -142,11 +137,10 @@ function verifyPass(req, res, next) {
   next();
 };
 
-function compareLast(req, res, next){
+function compareLast(req: Req, res: Res, next){
   User.query().select('password').where({email: req.body.email})
     .then(user => {
-      user = user[0];
-      return bcrypt.compare(req.body.password, user.password);
+      return bcrypt.compare(req.body.password, user[0].password);
     })
     .then(result => {
       if(result) {
@@ -162,4 +156,4 @@ function compareLast(req, res, next){
     });
 };
 
-module.exports = router;
+export default router;

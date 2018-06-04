@@ -1,10 +1,9 @@
-const express = require('express');
-const { Idea, Comment } = require('../db/models/idea_schema');
-//const { Comment } = require('../db/models/comment_schema');
-const router = express.Router();
+import { Router, Request as  Req, Response as Res} from 'express';
+import { Idea, Comment } from '../db/models/idea_schema';
+const router = Router();
 
 // Middleware function for entire /ideas API to make sure the user is logged in to access these routes
-function authenticated(req, res, next){
+function authenticated(req: Req, res: Res, next){
   if(req.user){
     next();
   } else {
@@ -25,7 +24,7 @@ router.use(authenticated);
  */
 
 router
-  .get('/', (req, res) => {
+  .get('/', (req: Req, res: Res) => {
     Idea.query()
       .then(ideas => {
         const message = req.flash('success');
@@ -44,7 +43,7 @@ router
         res.status(400).render('ideas', {error: err.message});
       });
   })
-  .get('/:id', (req,res) => {
+  .get('/:id', (req: Req, res: Res) => {
     Idea.query().findById(req.params.id).eager('comments')
     .then(idea => {
       res.render('oneIdea', {idea});
@@ -55,7 +54,7 @@ router
       res.render('ideas', {error: err});
     });
   })
-  .post('/', (req, res) => {
+  .post('/', (req: Req, res: Res) => {
     const newIdea = req.body;
     Idea.query()
       .allowInsert('[idea, creator]')
@@ -71,7 +70,7 @@ router
         res.send(err);
       });
   })
-  .post('/:id/comments', (req, res) => {
+  .post('/:id/comments', (req: Req, res: Res) => {
     Idea.query().findById(req.params.id)
       .then(idea => {
         return idea.$relatedQuery('comment')
@@ -92,4 +91,4 @@ router
 
 
 
-module.exports = router;
+export default router;

@@ -1,8 +1,10 @@
-const Knex = require('knex');
-const connection = require('../knexfile');
-const { Model } = require('objection');
+//const Knex = require('knex');
+import * as Knex from 'knex';
+//const connection = require('../knexfile');
+import * as connection from '../knexfile';
+import { Model } from 'objection';
 
-const knexConnection = Knex(connection);
+const knexConnection = Knex(connection.default);
 
 Model.knex(knexConnection);
 
@@ -45,4 +47,4 @@ class Idea extends Model {
   }
 }
 
-module.exports = { Idea, Comment };
+export{ Idea, Comment };
