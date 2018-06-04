@@ -42,7 +42,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.4.3",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "typescript": "^2.9.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.1",
@@ -61,7 +62,6 @@
     "@types/passport": "^0.4.5",
     "@types/passport-local": "^1.0.33",
     "@types/pg": "^7.4.9",
-    "@types/pug": "^2.0.4",
-    "typescript": "^2.9.1"
+    "@types/pug": "^2.0.4"
   }
 }

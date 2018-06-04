@@ -16,6 +16,7 @@ dependencies:
   passport-local: 1.0.0
   pg: 7.4.3
   pug: 2.0.3
+  typescript: 2.9.1
 devDependencies:
   '@types/bcryptjs': 2.4.1
   '@types/body-parser': 1.17.0
@@ -34,7 +35,6 @@ devDependencies:
   '@types/passport-local': 1.0.33
   '@types/pg': 7.4.9
   '@types/pug': 2.0.4
-  typescript: 2.9.1
 packages:
   /@types/babel-types/7.0.2:
     dev: false
@@ -2709,7 +2709,7 @@ packages:
     resolution:
       integrity: sha512-HRkVv/5qY2G6I8iab9cI7v1bOIdhm94dVjQCPFElW9W+3GeDOSHmy2EBYe4VTApuzolPcmgFTN3ftVJRKR2J9Q==
   /typescript/2.9.1:
-    dev: true
+    dev: false
     engines:
       node: '>=4.2.0'
     resolution:
