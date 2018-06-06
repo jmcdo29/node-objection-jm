@@ -1,7 +1,4 @@
-/* const passport = require("passport"); */
-//const LocalStrategy = require("passport-local").Strategy;
 import { Strategy } from 'passport-local';
-//const { User } = require("../db/models/user_schema");
 import { User } from '../db/models/user_schema';
 import { compare, hashSync } from "bcryptjs";
 

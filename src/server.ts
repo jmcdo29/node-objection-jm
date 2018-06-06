@@ -8,6 +8,7 @@ import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 
 import * as morgan from 'morgan';
+import * as compression from 'compression';
 
 import routes from './routes/routes';
 
@@ -17,6 +18,7 @@ config();
 
 const app = express();
 
+app.use(compression());
 app.use(helmet());
 app.use(morgan('dev'));
 app.set('view engine', 'pug');

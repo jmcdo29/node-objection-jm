@@ -1,6 +1,4 @@
-//const Knex = require('knex');
 import * as Knex from 'knex';
-//const connection = require('../knexfile');
 import * as connection from '../knexfile';
 import { Model } from 'objection';
 
