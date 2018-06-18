@@ -1,0 +1,33 @@
+{{#if message}}
+  <p>{{message}}</p>
+{{/if}}
+{{#if signedIn}}
+  <p>{{signedIn}}</p>
+{{/if}}
+{{#if error}}
+  <div class="error">
+    <p>{{error}}</p>
+  </div>
+{{/if}}
+<table>
+  <thead>
+    <tr>
+      <th>Idea</th>
+      <th>Creator</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each ideas}}
+    <tr>
+      <td>
+        <a class="inline" href="/ideas/{{this.id}}">{{this.idea}}</a>
+      </td>
+      <td>
+        {{this.creator}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<a class="logout" href="/users/logout">Logout</a>

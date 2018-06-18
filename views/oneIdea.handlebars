@@ -1,0 +1,21 @@
+<div class="idea">
+  <p>This is the idea {{idea.idea}} created by {{idea.creator}}. Below you can find the comments about {{idea.idea}}. Or you can click <a class="inline" href='/ideas'>here</a> to go back!</p>
+</div>
+<div class="comment">
+  <table>
+      <thead>
+        <tr>
+          <th>Comment</th>
+          <th>Commentor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each idea.comments}}
+          <tr>
+            <td>{{this.comment}}</td>
+            <td>{{this.creator}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+<h1>Forgot Your Password</h1>
+<p>
+  Please enter your email address so we can send you an email with the steps on how to reset your password.
+</p>
+{{#if message}}
+  <div class="info">
+    <p>
+      {{message}}
+    </p>
+  </div>
+{{/if}}
+<form action="/users/forgot" method="post">
+  <div class="custTable">
+    <div class="row">
+      <div class="cell label">Email</div>
+      <div class="cell input">
+        <input type="email" name="email">
+      </div>
+    </div>
+  </div>
+  <input type="submit" value="Send Email">
+</form>

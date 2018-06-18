@@ -1,0 +1,38 @@
+<div>
+  <h2>Welcome to the Registration Page</h2>
+  <p>When creating a password, please ensure it contains at least one (1) special charater (!@#$%^&*), one (1) number, one (1) lowercase, and one (1) uppercase character. Also, please make sure that it is at least eight (8) characters long.</p>
+</div>
+{{#if error}}
+  {{#each error}}
+    <p class="error">{{this}}</p>
+  {{/each}}
+{{/if}}
+<form action="/users/signup", method="post">
+  <div class="custTable">
+    <div class="row">
+      <div class="cell label">
+        <p>Email</p>
+      </div>
+      <div class="cell input">
+        <input type="email", name="email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell label">
+        <p>Password</p>
+      </div>
+      <div class="cell input">
+        <input type="password", name="password">
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell label">
+        <p>Confirm Password</p>
+      </div>
+      <div class="cell input">
+        <input type="password", name="confPass">
+      </div>
+    </div>
+  </div>
+  <input type="submit" value="Register!">
+</form>

@@ -79,4 +79,12 @@ input[type=email], input[type=password] {
   float: left;
 }
 
+form {
+  margin-bottom: 1em;
+}
+
+table {
+  margin: 1em 0em;
+}
+
 /*# sourceMappingURL=public/style/style.css.map */

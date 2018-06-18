@@ -1,0 +1,14 @@
+<a href="/users/login">Login</a>
+<a href="/users/signup">Signup</a>
+{{#if loggedIn}}
+  <a href="/ideas">Ideas</a>
+{{/if}}
+<div>
+  <p>Welcome to my app!</p>
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+  {{#unless loggedIn}}
+    <p>Please <a class='inline' href="/users/login"> log in</a> to view my ideas! If you do not have an account you can click <a class='inline' href="/users/signup"> here!</a></p>
+  {{/unless}}
+</div>

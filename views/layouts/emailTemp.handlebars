@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .body{
+        height: 90%;
+        padding: 1em 1em;
+        background-color: lightgrey;
+      }
+      .info{
+        
+      }
+  </style>
+</head>
+<body>
+  <div class="body">
+    <h2>Reset Your Password</h2>
+    <div class="info">
+      <p>Hello, it looks like you or someone else has asked to reset your password.</p>
+      <p>If this was not you we suggest you go change your password for security sake!</p>
+      <p>If this was you, please follow <a href="http://"+ {{host}} + "/users/reset/" + {{reset}}> this link</a>.</p>
+      <p>This email link will expire in 15 minutes.</p>
+    </div>
+    <div class="closer">
+      <p>Have a great day.</p>
+      <p>The ZeldaPlay Team.</p>
+    </div>
+  </div>
+  <div class="foot">
+    <p>This email was sent on the behalf of ZeldaPlay in a regards to contact you about your password reset. For any questions or concerns please email us at <a href="mailto:jmcdo29+zeldaplay@gmail.com?Subject=Questions%20And%20Comments"> zeldaPlay@gmail.com</a>.</p>
+  </div>
+</body>
+</html>

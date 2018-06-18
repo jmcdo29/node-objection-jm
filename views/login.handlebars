@@ -1,0 +1,33 @@
+<h2>Welcome to the Log In Page</h2>
+{{#if errorMsg}}
+  <div class="error">
+    <p>{{errMsg}}</p>
+  </div>  
+{{/if}}
+{{#if message}}
+  <div class="message">
+    <p>{{message}}</p>
+  </div>
+{{/if}} 
+<form action="/users/login", method="post">
+  <div class="custTable">
+    <div class="row">
+      <div class="cell label">
+        <p>Email</p>
+      </div>
+      <div class="cell input">
+        <input type="email", name="email">
+      </div>
+    </div>
+    <div class="row">
+      <div class="cell label">
+        <p>Password</p>
+      </div>
+      <div class="cell input">
+        <input type="password", name="password">
+      </div>
+    </div>
+  </div>
+  <button type="submit">Log In</button>
+</form>
+<a class="inline" href="/users/forgot"> Forgot your password?</a>

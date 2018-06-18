@@ -9,3 +9,8 @@ requests
 *.sass
 *.css.map
 build
+*.log
+shrinkwrap.yaml
+*.yaml
+nodemon.json
+*.cmd
