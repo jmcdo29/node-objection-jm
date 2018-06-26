@@ -2,12 +2,13 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const nodemon = require('gulp-nodemon');
 
-gulp.task('nodemon', () => {
+gulp.task('nodemon', (done) => {
   nodemon({
-    watch: ['src', 'public', 'views'],
-    ignore: ['**/*.test.ts', '**/*.spec.ts', '.git', 'node_modules', 'build'],
-    ext: 'ts handlebars css',
-    exec: 'ts-node ./src/app/server.ts'
+    script: './build/server.js',
+    ext: 'js handlebars css',
+    env: { 'NODE_ENV': 'development' },
+    ignore: 'tests gulpfile.js',
+    done: done
   })
   .on('restart', () => {
     console.log('Restarting the server.');

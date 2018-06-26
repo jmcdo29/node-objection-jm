@@ -7,9 +7,7 @@
     "npm": ">=6.x"
   },
   "scripts": {
-    "prestart": "tsc -p ./src/app",
     "start": "node ./build/server.js",
-    "pretest": "TS_NODE_PROJECT=./src/appgulp nodemon",
     "test": "mocha -r ts-node/register ./src/tests/**/*.spec.ts"
   },
   "repository": {
