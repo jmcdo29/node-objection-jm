@@ -18,6 +18,8 @@ router.use(authenticated);
  * GET:
  *      /               :Get all the ideas and display them
  *      /:id            :Get the specified idea and display it with comments
+ *      /new            :Get the form for a new idea
+ *      /:id/new        :Get the form for a new comment
  * POST:
  *      /               :Add a new idea
  *      /:id/comments   :Add a comment to specified idea
@@ -43,7 +45,10 @@ router
         res.status(400).render('ideas', {error: err.message});
       });
   })
-  .get('/:id', (req: Req, res: Res) => {
+  .get('/new', (req: Req, res: Res) => {
+    res.render('newidea');
+  })
+  .get('/:id(\\d+)', (req: Req, res: Res) => {
     Idea.query().findById(req.params.id).eager('comments')
     .then(idea => {
       res.render('oneIdea', {idea});
@@ -53,6 +58,9 @@ router
       console.error(err);
       res.render('ideas', {error: err});
     });
+  })
+  .get('/:id/new', (req: Req, res: Res) => {
+    res.render('newComment', {id: req.params.id});
   })
   .post('/', (req: Req, res: Res) => {
     const newIdea = req.body;
@@ -70,7 +78,7 @@ router
         res.send(err);
       });
   })
-  .post('/:id/comments', (req: Req, res: Res) => {
+  .post('/:id(\\d+)/comments', (req: Req, res: Res) => {
     Idea.query().findById(req.params.id)
       .then(idea => {
         return idea.$relatedQuery('comment')

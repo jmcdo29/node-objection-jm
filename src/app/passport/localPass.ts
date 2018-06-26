@@ -18,7 +18,7 @@ export  function local(passport) {
             if (!user[0]) {
               throw new Error('No user found. Please check your user name, or sign up.');
             }
-            return new Promise(function(resolve, reject){
+            return new Promise<void | any>(function(resolve, reject){
               compare(password, user[0].password)
                 .then(result => {
                   if (result) {

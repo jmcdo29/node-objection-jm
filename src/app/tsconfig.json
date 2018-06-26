@@ -1,22 +1,25 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "outDir": "./build",
-    "target": "es6",
+    "outDir": "../../build",
+    "target": "es2018",
     "moduleResolution": "node",
     "baseUrl": ".",
+    "lib": [
+      "es2018",
+      "dom",
+    ],
     "paths": {
       "*": [
-        "node_modules/*",
-        "src/types/*"
+        "../../node_modules/*"
       ]
     }
   },
   "include": [
-    "./src/**/*"
+    "./**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "./src/db/models/comment_schema.ts"
+    "../../node_modules",
+    "../tests"
   ],
 }

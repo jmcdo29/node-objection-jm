@@ -2,18 +2,15 @@ import {config} from 'dotenv';
 import * as express from 'express';
 import {json, urlencoded}  from "body-parser";
 import * as helmet from 'helmet';
-import * as session from 'express-session';
 import flash = require('express-flash');
 import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 import * as handlebars from "express-handlebars";
-
+import { mySession as session } from './utils/sessionConf';
 import * as morgan from 'morgan';
 import * as compression from 'compression';
 
 import routes from './routes/routes';
-
-const sessionStore = new session.MemoryStore;
 
 config();
 
@@ -28,13 +25,7 @@ app.use(express.static('public'));
 app.use(json());
 app.use(urlencoded({extended: false}));
 app.use(cookieParser(process.env.SECRET));
-app.use(session({
-  secret: process.env.SECRET,
-  cookie: {maxAge: 60000},
-  store: sessionStore,
-  saveUninitialized: true,
-  resave: true
-}));
+app.use(session);
 app.use(flash());
 
 app.use(passport.initialize());
@@ -49,3 +40,5 @@ app.listen(process.env.PORT, () => {
 app.on('error', err => {
   console.error(err);
 });
+
+export { app };

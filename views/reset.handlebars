@@ -1,5 +1,5 @@
 <h1>Reset your Password {{user.email}}</h1>
-<p>When creating a password, please ensure it contains at least one (1) special charater (!@#$%^&*), one (1) number, one (1) lowercase, and one (1) uppercase character. Also, please make sure that it is at least eight (8) characters long.</p>
+<p>When creating a password, please ensure it contains at least one (1) special charater (!@#$%^*&amp;), one (1) number, one (1) lowercase, and one (1) uppercase character. Also, please make sure that it is at least eight (8) characters long.</p>
 <form action="/users/reset", method="post">
   {{#if error}}
     {{#each error}}
