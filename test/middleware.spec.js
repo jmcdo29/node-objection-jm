@@ -20,7 +20,7 @@ describe('login middleware', function() {
           return;
         })
         .catch(err => {
-          throw err;
+          console.error(err);
         });
     });
 
@@ -28,11 +28,11 @@ describe('login middleware', function() {
       chai.request(app)
         .get('/users/login')
         .then(res => {
-          console.log(res);
+          //console.log(res);
           expect(res).to.have.status(302);
         })
         .catch(err => {
-          throw err;
+          console.error(err);
         });
     });
   });
@@ -45,7 +45,7 @@ describe('login middleware', function() {
           expect(res).to.have.status(200);
         })
         .catch(err => {
-          throw err;
+          console.error(err);
         })
     })
   });
@@ -54,7 +54,98 @@ describe('login middleware', function() {
 
   })
   describe('verifyPass', function() {
-
+    const user = {
+      email: 'test@test.com',
+      password: 'ThisPa$$willb3g00d',
+      confPass: 'ThisPa$$willb3g00d'
+    }
+    it('should fail for having pass and confPass different', function() {
+      chai.request(app)
+        .post('/users/signup')
+        .send({
+          email: 'test@test.com',
+          password: 'ThisPa$$willb3g00d',
+          confPass: 'ThisIsdiffernt',
+          token: '0978sdf098asdf87'
+        })
+        .then(result => {
+          expect(result).to.have.status(302);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
+    it('should have an error for missing capital', function() {
+      user.password = user.confPass = 'nocapitals';
+      chai.request(app)
+        .post('/users/signup')
+        .send(user)
+        .then(result => {
+          expect(result).to.have.status(302);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
+    it('should have an error for missing lowercase', function() {
+      user.password = user.confPass = 'ALLCAPITALS';
+      chai.request(app)
+        .post('/users/signup')
+        .send(user)
+        .then(result => {
+          expect(result).to.have.status(302);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
+    it('should have an error for missing number', function() {
+      user.password = user.confPass = 'noCapitalsNoNums';
+      chai.request(app)
+        .post('/users/signup')
+        .send(user)
+        .then(result => {
+          expect(result).to.have.status(302);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
+    it('should have an error for missing special character', function() {
+      user.password = user.confPass = 'YesCapsYesLowYesNumNoSpec';
+      chai.request(app)
+        .post('/users/signup')
+        .send(user)
+        .then(result => {
+          expect(result).to.have.status(302);
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
+    it('should have an error for being too short', function() {
+      user.password = user.confPass = 'short';
+      chai.request(app)
+        .post('/users/signup')
+        .send(user)
+        .then(result => {
+          expect(result).to.be.a('object')
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
+    it('should allow me to create the password', function(){
+      chai.request(app)
+        .post('/users/signup')
+        .send(user)
+        .then(result => {
+          expect(result).to.be.a('object');
+        })
+        .catch(err => {
+          console.error(err);
+        })
+    })
   })
   describe('compareLast', function() {
 

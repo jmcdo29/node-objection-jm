@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node ./build/server.js",
-    "test": "nyc --reporter=html mocha --exit"
+    "test": "snyk test && nyc --reporter=html mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -57,6 +57,7 @@
     "gulp-sass": "^4.0.1",
     "mocha": "^5.2.0",
     "nyc": "^12.0.2",
-    "supertest": "^3.1.0"
+    "supertest": "^3.1.0",
+    "snyk": "^1.78.0"
   }
 }
