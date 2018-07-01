@@ -14,3 +14,5 @@ shrinkwrap.yaml
 *.yaml
 nodemon.json
 *.cmd
+.nyc_output
+coverage

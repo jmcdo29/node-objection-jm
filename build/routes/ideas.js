@@ -1,15 +1,11 @@
-const express = require("express");
-const Idea = require("../db/models/idea_schema");
+const express = require('express');
+const Idea = require('../db/models/idea_schema');
 const router = express.Router();
+const middleware = require('./middleware/idea-middleware');
+
+const authenticated = middleware.authenticated;
 // Middleware function for entire /ideas API to make sure the user is logged in to access these routes
-function authenticated(req, res, next) {
-    if (req.user) {
-        next();
-    }
-    else {
-        res.redirect('/');
-    }
-}
+
 router.use(authenticated);
 /**
  * API routes for /idea

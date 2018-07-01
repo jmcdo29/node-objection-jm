@@ -1,8 +1,8 @@
-require("dotenv").config();
-const User = require("../db/models/user_schema");
-const crypto = require("crypto");
-const nodemailer = require("nodemailer");
-const mg = require("nodemailer-mailgun-transport");
+require('dotenv').config();
+const User = require('../db/models/user_schema');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
 
 const auth = {
     auth: {

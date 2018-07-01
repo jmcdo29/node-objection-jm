@@ -1,15 +1,15 @@
-require("dotenv").config();
-const express = require("express");
-const body_parser = require("body-parser");
-const helmet = require("helmet");
-const flash = require("express-flash");
-const cookieParser = require("cookie-parser");
-const passport = require("passport");
-const handlebars = require("express-handlebars");
-const sessionConf = require("./utils/sessionConf");
-const morgan = require("morgan");
-const compression = require("compression");
-const routes = require("./routes/routes");
+require('dotenv').config();
+const express = require('express');
+const body_parser = require('body-parser');
+const helmet = require('helmet');
+const flash = require('express-flash');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const handlebars = require('express-handlebars');
+const sessionConf = require('./utils/sessionConf');
+const morgan = require('morgan');
+const compression = require('compression');
+const routes = require('./routes/routes');
 const app = express();
 
 app.use(compression());
@@ -35,3 +35,5 @@ app.listen(process.env.PORT, () => {
 app.on('error', err => {
     console.error(err);
 });
+
+module.exports = app;

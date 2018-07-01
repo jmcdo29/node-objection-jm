@@ -1,5 +1,5 @@
-const users = require("./users");
-const ideas = require("./ideas");
+const users = require('./users');
+const ideas = require('./ideas');
 
 module.exports = function (app, passport) {
     app.use('/users', users);
